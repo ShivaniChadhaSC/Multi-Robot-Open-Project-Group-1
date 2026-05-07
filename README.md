@@ -7,6 +7,7 @@ This project uses 3 TurtleBot3 robots in a Gazebo simulation. One robot acts as 
 3. Simulator: Gazebo
 
 # System Architecture
+```
 tb3_ws/
 └── src/
     └── formation_control/
@@ -27,7 +28,7 @@ tb3_ws/
         │   └── formation_world.sdf
         ├── package.xml
         └── setup.py
-
+```
 # Features
 1. CBF + QP Collision Avoidance
 2. LiDAR Obstacle Detection
@@ -39,7 +40,10 @@ tb3_ws/
 
 # Commands
 ### Build:
+```
 cd ~/tb3_ws && colcon build && source install/setup.bash
-
+```
 ### Launch:
+```
 ros2 launch formation_control formation_sim.launch.py
+```
