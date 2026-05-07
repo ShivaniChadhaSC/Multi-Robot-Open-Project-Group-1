@@ -31,6 +31,7 @@ setup(
             'consensus_node.py = formation_control.scripts.consensus_node:main',
             'topology_node.py = formation_control.scripts.topology_node:main',
             'voronoi_coverage.py = formation_control.scripts.voronoi_coverage:main',
+            'formation_only_test.py = formation_control.scripts.formation_only_test:main',
         ],
     },
 )
