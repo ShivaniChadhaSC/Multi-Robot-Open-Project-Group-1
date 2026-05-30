@@ -85,8 +85,8 @@ def generate_launch_description():
         consensus_node('tb3_2'),
 
         # Topology node — one global node
-        global_node('topology_node.py'),
+        #global_node('topology_node.py'),
 
         # Voronoi node — one global node
-        global_node('voronoi_coverage.py'),
+        #global_node('voronoi_coverage.py'),
     ])

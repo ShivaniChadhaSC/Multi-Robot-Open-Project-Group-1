@@ -24,14 +24,16 @@ setup(
     description='Multi-robot formation with CBF, consensus, topology, Voronoi',
     license='MIT',
     entry_points={
-        'console_scripts': [
-            'pose_publisher.py = formation_control.scripts.pose_publisher:main',
-            'leader_explorer.py = formation_control.scripts.leader_explorer:main',
-            'follower_formation.py = formation_control.scripts.follower_formation:main',
-            'consensus_node.py = formation_control.scripts.consensus_node:main',
-            'topology_node.py = formation_control.scripts.topology_node:main',
-            'voronoi_coverage.py = formation_control.scripts.voronoi_coverage:main',
-            'formation_only_test.py = formation_control.scripts.formation_only_test:main',
-        ],
+   'console_scripts': [
+        'pose_publisher = formation_control.scripts.pose_publisher:main',
+        'leader_explorer = formation_control.scripts.leader_explorer:main',
+        'follower_formation = formation_control.scripts.follower_formation:main',
+        'consensus_node = formation_control.scripts.consensus_node:main',
+        'topology_node = formation_control.scripts.topology_node:main',
+        'voronoi_coverage = formation_control.scripts.voronoi_coverage:main',
+        'cbf_only_test = formation_control.scripts.cbf_only_test:main',
+        'formation_convergence_test = formation_control.scripts.formation_convergence_test:main',
+        'minmax_consensus_node = formation_control.scripts.minmax_consensus_node:main',
+],
     },
 )

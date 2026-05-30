@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
-File: formation_only_test.py
-Standalone formation control test — NO CBF, NO obstacles, NO consensus.
+File: formation_convergence_test.py
+Robots start APART, then converge to triangular formation.
+Run followers with:
+  ros2 run formation_control formation_convergence_test --ros-args -r __ns:=/tb3_1
+  ros2 run formation_control formation_convergence_test --ros-args -r __ns:=/tb3_2
 """
 
 import rclpy
@@ -16,9 +19,9 @@ FORMATION_OFFSETS = {
     'tb3_2': np.array([-0.55, -0.32]),
 }
 
-class FormationOnly(Node):
-    def __init__(self):
-        super().__init__('formation_only')
+class FormationConvergence(Node):
+    def __init__(self):                     # FIXED: __init -> __init__
+        super().__init__('formation_convergence')
         self.ns = self.get_namespace().strip('/')
         self.cmd_pub = self.create_publisher(Twist, 'cmd_vel', 10)
         self.create_subscription(Odometry, 'odom', self.odom_cb, 10)
@@ -36,7 +39,7 @@ class FormationOnly(Node):
         self.ell = 0.12
 
         self.timer = self.create_timer(0.1, self.control_loop)
-        self.get_logger().info(f'Formation-only test started for [{self.ns}]')
+        self.get_logger().info(f'Formation convergence test started for [{self.ns}]')
 
     def odom_cb(self, msg):
         self.pos = np.array([msg.pose.pose.position.x, msg.pose.pose.position.y])
@@ -68,8 +71,11 @@ class FormationOnly(Node):
         diff = target - self.pos
         dist = np.linalg.norm(diff)
 
+        self.get_logger().info(f'[{self.ns}] Target: ({target[0]:.2f}, {target[1]:.2f}) | Distance: {dist:.2f}m')
+
         if dist < 0.08:
             self._publish(0.0, 0.0)
+            self.get_logger().info(f'[{self.ns}] Formation reached!')
             return
 
         u_des = self.k_form * diff / dist
@@ -83,9 +89,9 @@ class FormationOnly(Node):
         t.angular.z = float(np.clip(w, -self.w_max, self.w_max))
         self.cmd_pub.publish(t)
 
-def main():
-    rclpy.init()
-    rclpy.spin(FormationOnly())
+def main(args=None):                        # FIXED: added 'args=None'
+    rclpy.init(args=args)
+    rclpy.spin(FormationConvergence())
     rclpy.shutdown()
 
 if __name__ == '__main__':
